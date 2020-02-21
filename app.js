@@ -16,25 +16,32 @@ app.use(bodyParser.urlencoded({
 
 //************* Main Code **************
 
+var sourceNames = [];
+var wordNames = [];
+
 app.get("/", function(req, res){
   res.render("home");
 });
 
 app.get("/mindmap", function(req, res){
-  console.log(numberOfSources);
-  console.log(numberOfWords);
-  res.render("mindmap", {numberOfSources: numberOfSources, numberOfWords: numberOfWords});
+  res.render("mindmap", {
+    numberOfSources: numberOfSources,
+    numberOfWords: numberOfWords,
+    sourceNames: sourceNames,
+    wordNames: wordNames
+  });
 });
 
 app.post("/mindmap", function(req, res){
 
   numberOfSources = req.body.source;
   numberOfWords = req.body.word;
+  sourceNames = req.body.sourcesTitle;
+  wordNames = req.body.wordsTitle;
+  console.log(sourceNames);
   res.redirect("/mindmap");
 
 });
-
-
 
 app.listen(3000, function(req, res){
   console.log("Server started at port 3000");
